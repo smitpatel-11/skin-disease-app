@@ -4,7 +4,8 @@ services:
     env: python
     buildCommand: pip install -r requirements.txt
     startCommand: gunicorn app:app
-    pythonVersion: 3.10.13
     envVars:
       - key: FLASK_ENV
         value: production
+
+pythonVersion: 3.10.13
