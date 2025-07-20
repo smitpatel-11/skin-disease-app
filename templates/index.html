@@ -1,0 +1,190 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>PimplePolice - Skin Checker AI</title>
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;600&display=swap" rel="stylesheet">
+    <style>
+        :root {
+            --primary: #ff6b6b;
+            --secondary: #ff4757;
+            --bg: #fefefe;
+            --dark: #2f3542;
+            --light: #f1f2f6;
+            --danger: #e84118;
+        }
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Poppins', sans-serif;
+            background: var(--light);
+            color: var(--dark);
+        }
+
+        header {
+            background: linear-gradient(135deg, var(--primary), var(--secondary));
+            color: #fff;
+            text-align: center;
+            padding: 2rem 1rem;
+        }
+
+        h1 {
+            font-size: 2.2rem;
+            margin-bottom: 0.5rem;
+        }
+
+        p.subtext {
+            font-size: 1rem;
+            opacity: 0.9;
+        }
+
+        .container {
+            max-width: 700px;
+            margin: 2rem auto;
+            padding: 1.5rem;
+        }
+
+        .card {
+            background: #fff;
+            border-radius: 10px;
+            padding: 2rem;
+            box-shadow: 0 4px 16px rgba(0, 0, 0, 0.05);
+        }
+
+        .upload-section {
+            border: 2px dashed #ccc;
+            border-radius: 8px;
+            padding: 1.5rem;
+            text-align: center;
+        }
+
+        .upload-btn {
+            background: var(--primary);
+            color: #fff;
+            padding: 0.75rem 1.5rem;
+            border: none;
+            border-radius: 30px;
+            font-weight: 600;
+            cursor: pointer;
+            margin-top: 1rem;
+        }
+
+        .upload-btn:hover {
+            background: var(--secondary);
+        }
+
+        .file-input {
+            display: none;
+        }
+
+        #file-name {
+            margin-top: 0.5rem;
+            font-size: 0.9rem;
+            color: #555;
+        }
+
+        .result-image {
+            width: 100%;
+            border-radius: 8px;
+            margin: 1rem 0;
+        }
+
+        .prediction {
+            font-size: 1.2rem;
+            font-weight: 600;
+        }
+
+        .confidence {
+            margin-top: 0.5rem;
+            font-weight: 500;
+            color: #444;
+        }
+
+        .error {
+            background: #ffe6e6;
+            color: var(--danger);
+            padding: 1rem;
+            border-radius: 8px;
+            margin-top: 1rem;
+        }
+
+        .note {
+            font-size: 0.9rem;
+            margin-top: 1rem;
+            color: #666;
+        }
+
+        footer {
+            text-align: center;
+            padding: 2rem 1rem;
+            font-size: 0.85rem;
+            color: #aaa;
+        }
+    </style>
+</head>
+<body>
+    <header>
+        <h1>PimplePolice</h1>
+        <p class="subtext">The undercover agent your skin didn’t know it needed;)</p>
+    </header>
+
+    <div class="container">
+        <div class="card">
+            <h2>Upload Image</h2>
+            <p>Skin only. No filters. No nonsense.</p>
+
+            {% if error %}
+            <div class="error">{{ error }}</div>
+            {% endif %}
+
+            <form action="/" method="post" enctype="multipart/form-data">
+                <div class="upload-section">
+                    <input type="file" name="image" id="image" class="file-input" required accept="image/*">
+                    <label for="image" class="upload-btn">Choose Image</label>
+                    <div id="file-name">No file selected</div>
+                </div>
+                <button type="submit" class="upload-btn">Analyze</button>
+            </form>
+        </div>
+
+        {% if prediction %}
+        <div class="card" style="margin-top: 2rem;">
+            <h2>Result</h2>
+
+            {% if image %}
+            <img src="{{ image }}" alt="Uploaded Image" class="result-image">
+            {% endif %}
+
+            <div class="prediction">Condition: {{ prediction }}</div>
+
+            {% if confidence %}
+            <div class="confidence">Confidence: {{ confidence }}</div>
+            {% endif %}
+
+            {% if "not recognized" in prediction.lower() %}
+                <div class="note">⚠️ AI analyzed your pixels, not your pain. Let a dermatologist handle the real stuff.</div>
+            {% else %}
+                <div class="note">Don't rely on AI alone. Always consult a professional if it feels serious!</div>
+            {% endif %}
+        </div>
+        {% endif %}
+    </div>
+
+    <footer>
+        &copy; 2025 PimplePolice AI. Results are for informational purposes only.
+    </footer>
+
+    <script>
+        document.getElementById('image').addEventListener('change', function (e) {
+            const fileName = e.target.files[0] ? e.target.files[0].name : 'No file selected';
+            document.getElementById('file-name').textContent = fileName;
+        });
+    </script>
+</body>
+</html>
