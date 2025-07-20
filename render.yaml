@@ -2,9 +2,9 @@ services:
   - type: web
     name: skin-disease-app
     env: python
-    pythonVersion: 3.10.13
     buildCommand: pip install -r requirements.txt
     startCommand: gunicorn app:app
+    pythonVersion: 3.10.13
     envVars:
       - key: FLASK_ENV
         value: production
