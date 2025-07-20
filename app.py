@@ -12,7 +12,7 @@ app.config['UPLOAD_FOLDER'] = 'static/uploads'
 app.config['ALLOWED_EXTENSIONS'] = {'png', 'jpg', 'jpeg', 'webp'}
 
 # Load model and class names
-model = tf.keras.models.load_model("saved_model_format", compile=False)
+model = tf.keras.layers.TFSMLayer("skin_model.keras", call_endpoint="serving_default")
 with open("class_names.json") as f:
     class_names = json.load(f)
 
