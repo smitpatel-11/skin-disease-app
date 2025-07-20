@@ -1,5 +1,5 @@
 from flask import Flask, render_template, request, url_for
-from tensorflow.keras.models import load_model
+import tensorflow as tf
 from tensorflow.keras.applications.efficientnet import preprocess_input
 import numpy as np
 import json
@@ -12,7 +12,7 @@ app.config['UPLOAD_FOLDER'] = 'static/uploads'
 app.config['ALLOWED_EXTENSIONS'] = {'png', 'jpg', 'jpeg', 'webp'}
 
 # Load model and class names
-model = load_model("skin_model.h5")
+model = tf.keras.models.load_model("saved_model_format")
 with open("class_names.json") as f:
     class_names = json.load(f)
 
