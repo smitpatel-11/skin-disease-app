@@ -1,9 +1,10 @@
 services:
   - type: web
-    name: skin-disease-classifier
+    name: skin-disease-app
     env: python
+    pythonVersion: 3.10
     buildCommand: pip install -r requirements.txt
     startCommand: gunicorn app:app
     envVars:
-      - key: PYTHON_VERSION
-        value: 3.10
+      - key: FLASK_ENV
+        value: production
